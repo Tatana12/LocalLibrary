@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre # Убедись, что Genre импортирован
+from django.views import generic
 
 def index(request):
     num_books = Book.objects.all().count()
@@ -21,3 +22,17 @@ def index(request):
             'num_books_with_word': num_books_with_word, # <-- Передаем в шаблон
         },
     )
+
+class BookListView(generic.ListView):
+    model = Book
+    paginate_by = 10
+
+class BookDetailView(generic.DetailView):
+    model = Book
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 10 
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
