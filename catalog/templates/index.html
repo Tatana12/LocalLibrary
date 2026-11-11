@@ -21,4 +21,8 @@
     <li><strong>Books containing "царе":</strong> {{ num_books_with_word }}</li>
   </ul>
 
+    <p>
+    You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{%
+    else %} times{% endif %}.
+    </p>
 {% endblock %}
