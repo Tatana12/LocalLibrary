@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Book, Author, BookInstance, Genre # Убедись, что Genre импортирован
+from .models import Book, Author, BookInstance, Genre, Language
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
@@ -120,3 +120,32 @@ class BookDelete(DeleteView):
     model = Book
     # После удаления перенаправляем на список всех книг (у нас этот URL называется 'books')
     success_url = reverse_lazy('books')
+
+# Списки экземпляров, жанров и языков
+class BookInstanceListView(generic.ListView):
+    model = BookInstance
+    paginate_by = 10
+
+class GenreListView(generic.ListView):
+    model = Genre
+    paginate_by = 10
+
+class LanguageListView(generic.ListView):
+    model = Language
+    paginate_by = 10
+
+# Создание жанра, языка и копии книги
+class GenreCreate(CreateView):
+    model = Genre
+    fields = '__all__'
+    success_url = reverse_lazy('genres')
+
+class LanguageCreate(CreateView):
+    model = Language
+    fields = '__all__'
+    success_url = reverse_lazy('languages')
+
+class BookInstanceCreate(CreateView):
+    model = BookInstance
+    fields = '__all__'
+    success_url = reverse_lazy('bookinstances')
